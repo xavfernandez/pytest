@@ -41,7 +41,7 @@ class TempdirHandler:
                 basetemp = py.path.local(basetemp)
                 if basetemp.check():
                     basetemp.remove()
-                    self.trace("DEBUG deleting basetemp", t)
+                    self.trace("DEBUG deleting basetemp", basetemp)
                 basetemp.mkdir()
             else:
                 # use a sub-directory in the temproot to speed-up
@@ -51,7 +51,9 @@ class TempdirHandler:
                 rootdir = temproot.join('pytest-%s' % getpass.getuser())
                 rootdir.ensure(dir=1)
                 basetemp = py.path.local.make_numbered_dir(prefix='pytest-',
-                                                           rootdir=rootdir)
+                                                           rootdir=rootdir,
+                                                           keep=0)
+                self.trace('DEBUG basetemp rebuilt', basetemp)
             self._basetemp = t = basetemp.realpath()
             self.trace("new basetemp", t)
             return t
