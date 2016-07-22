@@ -5,6 +5,7 @@ import pytest
 import py
 from _pytest.monkeypatch import monkeypatch
 
+import shutil
 import os
 
 original_unlink = os.unlink
@@ -18,6 +19,12 @@ def remove(path):
     print('DEBUG Deleting(remove) %s' % path)
     return original_remove(path)
 os.remove = remove
+
+original_rmtree = shutil.rmtree
+def rmtree(path, ignore_errors=False, onerror=None):
+    print('DEBUG Deleting (rmtree) %s' % path)
+    return original_rmtree(path, ignore_errors, onerror)
+shutil.rmtree = rmtree
 
 
 class TempdirHandler:
