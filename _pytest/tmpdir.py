@@ -9,9 +9,15 @@ import os
 
 original_unlink = os.unlink
 def unlink(path):
-    print('DEBUG Deleting %s' % path)
+    print('DEBUG Deleting (unlink) %s' % path)
     return original_unlink(path)
 os.unlink = unlink
+
+original_remove = os.remove
+def remove(path):
+    print('DEBUG Deleting(remove) %s' % path)
+    return original_remove(path)
+os.remove = remove
 
 
 class TempdirHandler:
