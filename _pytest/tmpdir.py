@@ -41,6 +41,7 @@ class TempdirHandler:
                 basetemp = py.path.local(basetemp)
                 if basetemp.check():
                     basetemp.remove()
+                    self.trace("DEBUG deleting basetemp", t)
                 basetemp.mkdir()
             else:
                 # use a sub-directory in the temproot to speed-up
