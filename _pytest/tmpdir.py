@@ -5,6 +5,14 @@ import pytest
 import py
 from _pytest.monkeypatch import monkeypatch
 
+import os
+
+original_unlink = os.unlink
+def unlink(path):
+    print('DEBUG Deleting %s' % path)
+    return original_unlink(path)
+os.unlink = unlink
+
 
 class TempdirHandler:
     def __init__(self, config):
